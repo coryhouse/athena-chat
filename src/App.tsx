@@ -9,7 +9,7 @@ export function App() {
   return (
     <Root>
       <h1>Chat</h1>
-      <Form>
+      <Form buttonText="Send">
         <FormField labelText="Message" id="message" inputAs={Textarea} />
       </Form>
     </Root>
