@@ -9,11 +9,18 @@ import { useState } from "react";
 
 export function App() {
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<string[]>([]);
 
   return (
     <Root>
       <h1>Chat</h1>
-      <Form includeSubmitButton={false}>
+      <Form
+        includeSubmitButton={false}
+        onSubmit={(event) => {
+          event.preventDefault(); // Don't post back to the server
+          setMessages([...messages, message]);
+        }}
+      >
         <FormField
           labelAlwaysAbove
           labelText="Message"
