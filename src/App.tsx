@@ -6,6 +6,8 @@ import Textarea from "@athena/forge/Textarea";
 import FormField from "@athena/forge/FormField";
 import Button from "@athena/forge/Button";
 import { useState } from "react";
+import List from "@athena/forge/List";
+import ListItem from "@athena/forge/ListItem";
 
 export function App() {
   const [message, setMessage] = useState("");
@@ -14,6 +16,13 @@ export function App() {
   return (
     <Root>
       <h1>Chat</h1>
+
+      <List>
+        {messages.map((m, index) => (
+          <ListItem key={index}>{m}</ListItem>
+        ))}
+      </List>
+
       <Form
         includeSubmitButton={false}
         onSubmit={(event) => {
