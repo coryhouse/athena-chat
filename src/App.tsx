@@ -19,6 +19,7 @@ export function App() {
         onSubmit={(event) => {
           event.preventDefault(); // Don't post back to the server
           setMessages([...messages, message]);
+          setMessage(""); // clear the message input since it was just submitted
         }}
       >
         <FormField
