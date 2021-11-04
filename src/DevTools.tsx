@@ -47,15 +47,15 @@ export default function DevTools({
         inputAs={Select}
         id="delete-message"
         labelText="Message to Delete"
-        onChange={(event) => {
+        onChange={async (event) => {
           const id = parseInt(event.currentTarget.value);
-          deleteMessage(id);
+          await deleteMessage(id);
           setMessages(messages.filter((m) => m.id !== id));
         }}
         options={messages.map((m) => {
           return { text: m.message, value: m.id };
         })}
-        value={messages.length > 0 ? messages[0].message : ""}
+        value={""}
       />
     </Form>
   );
