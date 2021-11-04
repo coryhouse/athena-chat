@@ -47,15 +47,18 @@ export function App() {
         <h2>Hi {user.username}</h2>
       </header>
 
-      <h1>Chat</h1>
+      <section aria-labelledby="chat-heading" id="chat-section" role="article">
+        <h1 id="chat-heading">Chat</h1>
 
-      <List>
-        {messages.map((m, index) => (
-          <ListItem key={index}>{m.message}</ListItem>
-        ))}
-      </List>
+        <List>
+          {messages.map((m, index) => (
+            <ListItem key={index}>{m.message}</ListItem>
+          ))}
+        </List>
 
-      <MessageForm onSubmit={handleSubmit} />
+        <MessageForm onSubmit={handleSubmit} />
+      </section>
+
       <Suspense fallback="Loading...">
         {process.env.REACT_APP_SHOW_DEV_TOOLS === "Y" && (
           <DevTools
