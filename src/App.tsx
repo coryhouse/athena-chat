@@ -54,15 +54,17 @@ export function App() {
       </List>
 
       <MessageForm onSubmit={handleSubmit} />
-      {process.env.REACT_APP_SHOW_DEV_TOOLS === "Y" && (
-        <DevTools
-          users={users}
-          setUser={setUser}
-          user={user}
-          messages={messages}
-          setMessages={setMessages}
-        />
-      )}
+      <Suspense fallback="Loading...">
+        {process.env.REACT_APP_SHOW_DEV_TOOLS === "Y" && (
+          <DevTools
+            users={users}
+            setUser={setUser}
+            user={user}
+            messages={messages}
+            setMessages={setMessages}
+          />
+        )}
+      </Suspense>
     </Root>
   );
 }
