@@ -19,6 +19,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "start-server-and-test": "^1.14.0",
     "typescript": "^4.4.4",
     "web-vitals": "^1.1.2"
   },
@@ -29,7 +30,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-api": "json-server --port 3001 --watch db.json",
-    "cy-open": "cypress open"
+    "cy-open": "cypress open",
+    "//cy": "Run the start script, wait for app to be up on 3000, then run cy-open",
+    "cy": "start-test 3000 cy-open"
   },
   "eslintConfig": {
     "extends": [
