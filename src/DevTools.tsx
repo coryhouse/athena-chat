@@ -1,15 +1,24 @@
 import Form from "@athena/forge/Form";
 import FormField from "@athena/forge/FormField";
 import Select from "@athena/forge/Select";
-import { User } from "./types";
+import { deleteMessage } from "./api/messagesApi";
+import { SentMessage, User } from "./types";
 
 type DevToolsProps = {
   user: User;
   users: User[];
   setUser: (user: User) => void;
+  messages: SentMessage[];
+  setMessages: (sentMessages: SentMessage[]) => void;
 };
 
-export default function DevTools({ users, setUser, user }: DevToolsProps) {
+export default function DevTools({
+  users,
+  setUser,
+  user,
+  messages,
+  setMessages,
+}: DevToolsProps) {
   return (
     <Form
       includeSubmitButton={false}
@@ -32,6 +41,21 @@ export default function DevTools({ users, setUser, user }: DevToolsProps) {
         }}
         options={users.map((u) => u.username)}
         value={user.username}
+      />
+
+      <FormField
+        inputAs={Select}
+        id="delete-message"
+        labelText="Message to Delete"
+        onChange={(event) => {
+          const id = parseInt(event.currentTarget.value);
+          deleteMessage(id);
+          setMessages(messages.filter((m) => m.id !== id));
+        }}
+        options={messages.map((m) => {
+          return { text: m.message, value: m.id };
+        })}
+        value={messages[0].message}
       />
     </Form>
   );

@@ -55,7 +55,13 @@ export function App() {
 
       <MessageForm onSubmit={handleSubmit} />
       {process.env.REACT_APP_SHOW_DEV_TOOLS === "Y" && (
-        <DevTools users={users} setUser={setUser} user={user} />
+        <DevTools
+          users={users}
+          setUser={setUser}
+          user={user}
+          messages={messages}
+          setMessages={setMessages}
+        />
       )}
     </Root>
   );
