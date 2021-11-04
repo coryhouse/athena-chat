@@ -1,12 +1,7 @@
 /// <reference types="cypress" />
 
 describe("App", () => {
-  it("should display messages for the default user", () => {
-    cy.visit("http://localhost:3000");
-    cy.findByText("Hi jeffsalinas");
-  });
-
-  it("should support changing the user via DevTools", () => {
+  it("should display default user and support changing the user via DevTools", () => {
     cy.visit("http://localhost:3000");
 
     // First, the default user should display
@@ -17,5 +12,12 @@ describe("App", () => {
 
     // Now only Cory's messages should display
     cy.findByText("Hi Cory, it's Jeff");
+  });
+
+  it.only("should support posting a new message", () => {
+    cy.visit("http://localhost:3000");
+    cy.findByLabelText("Message").type("Example message");
+    cy.findByRole("button", { name: "Send" }).click();
+    cy.findByText("Example message");
   });
 });
