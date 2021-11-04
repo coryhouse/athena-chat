@@ -8,12 +8,21 @@ type DevToolsProps = {
 };
 
 export function DevTools({ users }: DevToolsProps) {
-  <Form>
-    <FormField
-      inputAs={Select}
-      id="select-user"
-      labelText="Select user"
-      options={users.map((u) => u.username)}
-    />
-  </Form>;
+  return (
+    <Form
+      style={{
+        position: "absolute",
+        bottom: 0,
+        backgroundColor: "lightblue",
+        padding: 16,
+      }}
+    >
+      <FormField
+        inputAs={Select}
+        id="select-user"
+        labelText="Select user"
+        options={users.map((u) => u.username)}
+      />
+    </Form>
+  );
 }
