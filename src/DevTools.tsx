@@ -9,7 +9,7 @@ type DevToolsProps = {
   setUser: (user: User) => void;
 };
 
-export function DevTools({ users, setUser, user }: DevToolsProps) {
+export default function DevTools({ users, setUser, user }: DevToolsProps) {
   return (
     <Form
       includeSubmitButton={false}
