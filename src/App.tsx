@@ -8,8 +8,8 @@ import Button from "@athena/forge/Button";
 import { useEffect, useState } from "react";
 import List from "@athena/forge/List";
 import ListItem from "@athena/forge/ListItem";
-import { getMessages } from "./api/messagesApi";
-import { SentMessage } from "./types";
+import { getMessages, sendMessage } from "./api/messagesApi";
+import { SentMessage, UnsentMessage } from "./types";
 
 export function App() {
   const [message, setMessage] = useState("");
@@ -35,17 +35,21 @@ export function App() {
 
       <Form
         includeSubmitButton={false}
-        onSubmit={(event) => {
+        onSubmit={async (event) => {
           event.preventDefault(); // Don't post back to the server
 
-          //   const unsavedMessage: UnsentMessage = {
-          //     date: new Date().toISOString(),
-          //     message: message,
-          //     recipientUserId: 1,
-          //     senderUserId: 2,
-          //   };
+          const unsentMessage: UnsentMessage = {
+            date: new Date().toISOString(),
+            message,
+            // HACK: Hard coding ids. TODO: Fix.
+            recipientUserId: 1,
+            senderUserId: 2,
+          };
 
-          setMessages([...messages]);
+          // TODO: Handle loading state. Consider optimistic update.
+          const sentMessage = await sendMessage(unsentMessage);
+
+          setMessages([...messages, sentMessage]);
           setMessage(""); // clear the message input since it was just submitted
         }}
       >
