@@ -55,7 +55,7 @@ export default function DevTools({
         options={messages.map((m) => {
           return { text: m.message, value: m.id };
         })}
-        value={messages[0].message}
+        value={messages.length > 0 ? messages[0].message : ""}
       />
     </Form>
   );
