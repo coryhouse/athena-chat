@@ -7,6 +7,7 @@ import ListItem from "@athena/forge/ListItem";
 import { getMessages, sendMessage } from "./api/messagesApi";
 import { SentMessage, UnsentMessage, User } from "./types";
 import { MessageForm } from "./MessageForm";
+import { DevTools } from "./DevTools";
 
 export function App() {
   const [messages, setMessages] = useState<SentMessage[]>([]);
@@ -41,6 +42,7 @@ export function App() {
       </List>
 
       <MessageForm onSubmit={handleSubmit} />
+      <DevTools users={[]} />
     </Root>
   );
 }
