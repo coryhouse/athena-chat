@@ -19,15 +19,20 @@ export function App() {
   });
 
   useEffect(() => {
-    async function getInitialData() {
-      // TODO: Use Promise.all for performance
-      const _messages = await getMessages();
+    async function init() {
       const _users = await getUsers();
-      setMessages(_messages);
       setUsers(_users);
     }
+    init();
+  }, []); // only run once
+
+  useEffect(() => {
+    async function getInitialData() {
+      const _messages = await getMessages(user.id);
+      setMessages(_messages);
+    }
     getInitialData();
-  }, []); // Only run this once.
+  }, [user.id]); // Re-run when the user.id changes.
 
   async function handleSubmit(unsentMessage: UnsentMessage): Promise<void> {
     // TODO: Handle loading state. Consider optimistic update.
