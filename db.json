@@ -6,6 +6,13 @@
       "date": "2021-11-03",
       "senderUserId": 1,
       "recipientUserId": 2
+    },
+    {
+      "id": 2,
+      "message": "Hi Cory, it's Jeff",
+      "date": "2021-11-03",
+      "senderUserId": 3,
+      "recipientUserId": 1
     }
   ],
   "users": [
