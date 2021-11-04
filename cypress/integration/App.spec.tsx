@@ -31,6 +31,6 @@ describe("App", () => {
     cy.findByLabelText("Message to Delete").select("Example message");
 
     // Now make sure the delete worked. Message shouldn't display anymore.
-    // expect(cy.findByText("Example message")).to.be.false();
+    cy.findByText("Example message").should("not.exist");
   });
 });
