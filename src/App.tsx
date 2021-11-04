@@ -5,11 +5,15 @@ import React, { useEffect, useState } from "react";
 import List from "@athena/forge/List";
 import ListItem from "@athena/forge/ListItem";
 import { getMessages, sendMessage } from "./api/messagesApi";
-import { SentMessage, UnsentMessage } from "./types";
+import { SentMessage, UnsentMessage, User } from "./types";
 import { MessageForm } from "./MessageForm";
 
 export function App() {
   const [messages, setMessages] = useState<SentMessage[]>([]);
+  const [user, setUser] = useState<User>({
+    id: 1,
+    username: "coryhouse",
+  });
 
   useEffect(() => {
     async function getInitialMessages() {
@@ -28,6 +32,7 @@ export function App() {
   return (
     <Root>
       <h1>Chat</h1>
+      <h2>Hi {user.username}</h2>
 
       <List>
         {messages.map((m, index) => (
