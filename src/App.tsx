@@ -14,8 +14,8 @@ export function App() {
   const [messages, setMessages] = useState<SentMessage[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User>({
-    id: 1,
-    username: "coryhouse",
+    id: 3,
+    username: "jeffsalinas",
   });
 
   useEffect(() => {
