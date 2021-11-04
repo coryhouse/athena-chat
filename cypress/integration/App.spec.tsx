@@ -3,15 +3,16 @@
 describe("App", () => {
   it("should display default user and support changing the user via DevTools", () => {
     cy.visit("http://localhost:3000");
-
     // First, the default user should display
     cy.findByText("Hi jeffsalinas");
 
     // Now, let's change the user
     cy.findByLabelText("Select user").select("coryhouse");
 
-    // Now only Cory's messages should display
-    cy.findByText("Hi Cory, it's Jeff");
+    cy.findByLabelText("Chat").within(() => {
+      // Now only Cory's messages should display
+      cy.findByText("Hi Cory, it's Jeff");
+    });
   });
 
   // To make this atomic:
@@ -21,16 +22,21 @@ describe("App", () => {
   // 4. Remove the record from the DB using json-server's lowDB's API
   // 5. Reset the database
 
-  it.only("should support posting a new message", () => {
+  it("should support posting a new message", () => {
     cy.visit("http://localhost:3000");
     cy.findByLabelText("Message").type("Example message");
     cy.findByRole("button", { name: "Send" }).click();
-    cy.findByText("Example message");
+
+    cy.findByLabelText("Chat").within(() => {
+      cy.findByText("Example message");
+    });
 
     // Delete the message that was just created using the dev tools
     cy.findByLabelText("Message to Delete").select("Example message");
 
     // Now make sure the delete worked. Message shouldn't display anymore.
-    cy.findByText("Example message").should("not.exist");
+    cy.findByLabelText("Chat").within(() => {
+      cy.findByText("Example message").should("not.exist");
+    });
   });
 });
