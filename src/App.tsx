@@ -1,7 +1,6 @@
-// Named import
 import Root from "@athena/forge/Root";
 import "@athena/forge/dist/forge.css";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import List from "@athena/forge/List";
 import ListItem from "@athena/forge/ListItem";
 import { getMessages, sendMessage } from "./api/messagesApi";
@@ -44,8 +43,11 @@ export function App() {
 
   return (
     <Root>
+      <header style={{ backgroundColor: "orange", padding: 16 }}>
+        <h2>Hi {user.username}</h2>
+      </header>
+
       <h1>Chat</h1>
-      <h2>Hi {user.username}</h2>
 
       <List>
         {messages.map((m, index) => (
