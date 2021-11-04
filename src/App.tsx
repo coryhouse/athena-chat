@@ -7,8 +7,10 @@ import ListItem from "@athena/forge/ListItem";
 import { getMessages, sendMessage } from "./api/messagesApi";
 import { SentMessage, UnsentMessage, User } from "./types";
 import { MessageForm } from "./MessageForm";
-import { DevTools } from "./DevTools";
 import { getUsers } from "./api/userApi";
+
+// Lazy loading dev tools so that production users never get this code.
+const DevTools = React.lazy(() => import("./DevTools"));
 
 export function App() {
   const [messages, setMessages] = useState<SentMessage[]>([]);
