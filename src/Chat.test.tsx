@@ -17,7 +17,7 @@ const mockFetch = jest.fn(
 
 describe("Chat", () => {
   beforeEach(() => {
-    render(<Chat />);
+    render(<Chat messages={[]} setMessages={jest.fn()} />);
     (fetch as jest.Mock).mockClear();
   });
 
