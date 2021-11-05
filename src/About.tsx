@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { ThemeContext } from "./App";
+import { useTheme } from "./ThemeContext";
 
 export function About() {
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
   const style =
     theme === "dark"
       ? {

@@ -6,17 +6,12 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { SentMessage, User } from "./types";
 import { getMessages } from "./api/messagesApi";
 import { ErrorBoundary } from "react-error-boundary";
-import React from "react";
+import { ThemeContextProvider } from "./ThemeContext";
 
 // Lazy loading dev tools so that production users never get this code.
 const DevTools = lazy(() => import("./DevTools"));
 
-type ThemeContextOptions = "light" | "dark";
-
-export const ThemeContext = React.createContext<ThemeContextOptions>("light");
-
 export function App() {
-  const [theme, setTheme] = useState<ThemeContextOptions>("dark");
   const [messages, setMessages] = useState<SentMessage[]>([]);
   const [user, setUser] = useState<User>({
     id: 3,
@@ -41,7 +36,7 @@ export function App() {
   }
 
   return (
-    <ThemeContext.Provider value={theme}>
+    <ThemeContextProvider>
       <Root>
         <header style={{ backgroundColor: "orange", padding: 16 }}>
           <h2>Hi {user.username}</h2>
@@ -80,6 +75,6 @@ export function App() {
           )}
         </Suspense>
       </Root>
-    </ThemeContext.Provider>
+    </ThemeContextProvider>
   );
 }
