@@ -1,24 +1,34 @@
 import Form from "@athena/forge/Form";
 import FormField from "@athena/forge/FormField";
 import Select from "@athena/forge/Select";
+import { useEffect, useState } from "react";
 import { deleteMessage } from "./api/messagesApi";
+import { getUsers } from "./api/userApi";
 import { SentMessage, User } from "./types";
 
 type DevToolsProps = {
   user: User;
-  users: User[];
   setUser: (user: User) => void;
   messages: SentMessage[];
   setMessages: (sentMessages: SentMessage[]) => void;
 };
 
 export default function DevTools({
-  users,
   setUser,
   user,
   messages,
   setMessages,
 }: DevToolsProps) {
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    async function init() {
+      const _users = await getUsers();
+      setUsers(_users);
+    }
+    init();
+  }, []); // only run once
+
   return (
     <Form
       includeSubmitButton={false}
