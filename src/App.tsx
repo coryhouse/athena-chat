@@ -2,13 +2,13 @@ import { Route, Routes, Link } from "react-router-dom";
 import { About } from "./About";
 import { Chat } from "./Chat";
 import Root from "@athena/forge/Root";
-import React, { Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { SentMessage, User } from "./types";
 import { getUsers } from "./api/userApi";
 import { getMessages } from "./api/messagesApi";
 
 // Lazy loading dev tools so that production users never get this code.
-const DevTools = React.lazy(() => import("./DevTools"));
+const DevTools = lazy(() => import("./DevTools"));
 
 export function App() {
   const [messages, setMessages] = useState<SentMessage[]>([]);
