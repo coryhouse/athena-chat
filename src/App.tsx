@@ -6,11 +6,17 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { SentMessage, User } from "./types";
 import { getMessages } from "./api/messagesApi";
 import { ErrorBoundary } from "react-error-boundary";
+import React from "react";
 
 // Lazy loading dev tools so that production users never get this code.
 const DevTools = lazy(() => import("./DevTools"));
 
+type ThemeContextOptions = "light" | "dark";
+
+export const ThemeContext = React.createContext<ThemeContextOptions>("light");
+
 export function App() {
+  const [theme, setTheme] = useState<ThemeContextOptions>("dark");
   const [messages, setMessages] = useState<SentMessage[]>([]);
   const [user, setUser] = useState<User>({
     id: 3,
@@ -35,43 +41,45 @@ export function App() {
   }
 
   return (
-    <Root>
-      <header style={{ backgroundColor: "orange", padding: 16 }}>
-        <h2>Hi {user.username}</h2>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Chat</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+    <ThemeContext.Provider value={theme}>
+      <Root>
+        <header style={{ backgroundColor: "orange", padding: 16 }}>
+          <h2>Hi {user.username}</h2>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Chat</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ErrorBoundary fallback={<p>Sorry, chat is broken. :(</p>}>
-              <Chat messages={messages} setMessages={setMessages} />
-            </ErrorBoundary>
-          }
-        />
-        <Route path="/about" element={<About />} />
-      </Routes>
-
-      <Suspense fallback="Loading...">
-        {process.env.REACT_APP_SHOW_DEV_TOOLS === "Y" && (
-          <DevTools
-            setUser={setUser}
-            user={user}
-            messages={messages}
-            setMessages={setMessages}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ErrorBoundary fallback={<p>Sorry, chat is broken. :(</p>}>
+                <Chat messages={messages} setMessages={setMessages} />
+              </ErrorBoundary>
+            }
           />
-        )}
-      </Suspense>
-    </Root>
+          <Route path="/about" element={<About />} />
+        </Routes>
+
+        <Suspense fallback="Loading...">
+          {process.env.REACT_APP_SHOW_DEV_TOOLS === "Y" && (
+            <DevTools
+              setUser={setUser}
+              user={user}
+              messages={messages}
+              setMessages={setMessages}
+            />
+          )}
+        </Suspense>
+      </Root>
+    </ThemeContext.Provider>
   );
 }
