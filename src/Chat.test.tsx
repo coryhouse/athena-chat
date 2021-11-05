@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { App } from "./App";
+import { Chat } from "./Chat";
 
 const mockFetch = jest.fn(
   () =>
@@ -15,9 +15,9 @@ const mockFetch = jest.fn(
 
 (global as any).fetch = mockFetch;
 
-describe("App", () => {
+describe("Chat", () => {
   beforeEach(() => {
-    render(<App />);
+    render(<Chat />);
     (fetch as jest.Mock).mockClear();
   });
 
