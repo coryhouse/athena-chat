@@ -15,14 +15,23 @@ export function App() {
     id: 3,
     username: "jeffsalinas",
   });
+  const [error, setError] = useState<Error | undefined>(undefined);
 
   useEffect(() => {
     async function getInitialData() {
-      const _messages = await getMessages(user.id);
-      setMessages(_messages);
+      try {
+        const _messages = await getMessages(user.id);
+        setMessages(_messages);
+      } catch (err) {
+        setError(err as Error);
+      }
     }
     getInitialData();
   }, [user.id]); // Re-run when the user.id changes.
+
+  if (error) {
+    throw error;
+  }
 
   return (
     <Root>
