@@ -7,7 +7,7 @@ import { MessageForm } from "./MessageForm";
 
 type ChatProps = {
   messages: SentMessage[];
-  setMessages: (messages: SentMessage[]) => void;
+  setMessages: React.Dispatch<React.SetStateAction<SentMessage[]>>;
 };
 
 export function Chat({ messages, setMessages }: ChatProps) {
