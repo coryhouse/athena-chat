@@ -5,6 +5,7 @@ import Root from "@athena/forge/Root";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { SentMessage, User } from "./types";
 import { getMessages } from "./api/messagesApi";
+import { ErrorBoundary } from "react-error-boundary";
 
 // Lazy loading dev tools so that production users never get this code.
 const DevTools = lazy(() => import("./DevTools"));
@@ -48,10 +49,15 @@ export function App() {
           </ul>
         </nav>
       </header>
+
       <Routes>
         <Route
           path="/"
-          element={<Chat messages={messages} setMessages={setMessages} />}
+          element={
+            <ErrorBoundary fallback={<p>Sorry, chat is broken. :(</p>}>
+              <Chat messages={messages} setMessages={setMessages} />
+            </ErrorBoundary>
+          }
         />
         <Route path="/about" element={<About />} />
       </Routes>
