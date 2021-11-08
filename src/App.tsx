@@ -39,7 +39,7 @@ export function App() {
     <ThemeContextProvider>
       <Root>
         <header style={{ backgroundColor: "orange", padding: 16 }}>
-          <h2>Hi {user.username}</h2>
+          {user.username ? <h2>Hi {user.username}</h2> : undefined}
           <nav>
             <ul>
               <li>
